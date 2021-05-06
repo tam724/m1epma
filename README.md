@@ -22,7 +22,7 @@ For further information see:
 - To build the custom Riemann solvers using f2py, LAPACK needs to be installed
 
 ## Usage
-Have a look at [```example.ipynb```](example.ipynb) to see the package in use.
+Have a look at [```example.ipynb```](example.ipynb) to see the software in use.
 
 - to build the Riemann Solvers (using the f2py library)
 
@@ -32,6 +32,7 @@ Have a look at [```example.ipynb```](example.ipynb) to see the package in use.
 
 ## Contact
 Tamme Claus - tamme.claus@rwth-aachen.de
+
 supervised by:
  - [Jonas Bünger](http://www.mathcces.rwth-aachen.de/5people/buenger/start)
  - [Manuel Torrilhon](http://www.mathcces.rwth-aachen.de/5people/torrilhon/start)
