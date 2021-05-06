@@ -11,7 +11,7 @@ This software can compute jacobians alongside the k-ratios to allow the implemen
 For the jacobians, we rely on the adjoint state method.
 
 Note that this code is intended for reasearch, hence mostly undocumented.
-Some crude documentation (which helped while implementing) is provided under [/docs](/docs)
+Some crude documentation (which helped while implementing) is provided under [/doc](doc)
 
 For further information see:
 - (TODO) cite paper
