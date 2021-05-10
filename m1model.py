@@ -174,7 +174,7 @@ def setup_forward(experiment, mass_fractions: np.ndarray):
 def src2(solver, state, dt):
     q = state.q
     aux = state.aux
-    print(state.t)
+    #print(state.t)
     q[0, :, :] = q[0, :, :] + (-aux[1, :, :])*q[0, :, :]*dt / aux[0, :, :]
     q[1, :, :] = q[1, :, :] + (-aux[2, :, :] - aux[1, :, :])*q[1, :, :]*dt / aux[0, :, :]
     q[2, :, :] = q[2, :, :] + (-aux[2, :, :] - aux[1, :, :])*q[2, :, :]*dt / aux[0, :, :]
