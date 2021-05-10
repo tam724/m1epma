@@ -1,5 +1,8 @@
 # m1epma: A finite volume solver of the M1model based on CLAWPACK for Reconstruction in EPMA
 
+[![DOI](https://zenodo.org/badge/364845684.svg)](https://zenodo.org/badge/latestdoi/364845684)
+
+
 ![Sketch of EPMA](./epma_sketch.svg)
 
 [EPMA (Electron Probe Microanalysis)](https://en.wikipedia.org/wiki/Electron_microprobe) is a non-destructive method to determine the chemical composition of a material sample.
