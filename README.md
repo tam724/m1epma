@@ -24,7 +24,7 @@ For further information see:
 - To build the custom Riemann solvers using f2py, LAPACK needs to be installed
 
 ## Usage
-Have a look at [```example.ipynb```](example.ipynb) to see the software in use.
+Have a look at [```example.ipynb```](https://nbviewer.jupyter.org/github/tam724/m1epma/blob/main/example.ipynb) to see the software in use.
 
 - to build the Riemann Solvers (using the f2py library)
 
