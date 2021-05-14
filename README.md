@@ -44,11 +44,15 @@ supervised by:
 
 ## Resources
 
-Mass Attenuation Coefficient Database: https://www.nist.gov/pml/x-ray-mass-attenuation-coefficients
-
 CLAWPACK: https://www.clawpack.org
 
 JAX: https://github.com/google/jax
+
+Ground State Occupancies: [EPDL97: the evaluated photo data library `97 version](https://doi.org/10.2172/295438)
+
+Mass Attenuation Coefficient Database: https://www.nist.gov/pml/x-ray-mass-attenuation-coefficients
+
+Edge Energies: [X-Ray Form Factor, Attenuation, and Scattering Tables](https://dx.doi.org/10.18434/T4HS32)
 
 ## License
 GNU GPLv3, see [LICENSE](LICENSE)
