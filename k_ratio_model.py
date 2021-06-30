@@ -16,7 +16,7 @@ def densities(
     specific_densities: array_like
         Densities of pure materials. Dimensions: (n_e)
     """
-    return 1./np.einsum("ijk,k->ij", mass_fractions, 1./specific_densities)
+    return np.einsum("ijk,k->ij", mass_fractions, specific_densities)
 
 def weighted_material_property(
     mass_fractions: np.ndarray,

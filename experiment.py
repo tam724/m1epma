@@ -265,6 +265,17 @@ class Experiment:
     def parameter_dimensions(self):
         return (self.material.n_x, self.material.n_y, self.n_elements - 1)
 
+    def update_std_intensities(self):
+        for x_ray in self.x_ray_transitions:
+            el_idx = self.elements.index(x_ray.element)
+            parameters = np.zeros(self.parameter_dimensions)
+            if el_idx != len(self.elements) - 1:
+                parameters[:, :, el_idx] = 1.
+            k_r = k_ratios(self, parameters)
+            self._standart_intensities[el_idx] = k_r[el_idx]
+    
+
+
 def mass_fractions_from_parameters(n_x: int, n_y: int, parameters: np.ndarray):
     return jnp.append(parameters, jnp.reshape(1.-jnp.sum(parameters, axis=2), (n_x, n_y, 1)), axis=2)
 

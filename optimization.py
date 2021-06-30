@@ -131,7 +131,7 @@ def example():
     x_gn, k_gn = gauss_newton(cfe.F, cfe.f, cfe.J, x0, n_iter, lambda x: gn_history.append(x))
 
 
-    def lm_callback(x, _):
+    def lm_callback(x, y, z):
         lm_history.append(x)
 
 
