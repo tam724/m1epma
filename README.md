@@ -19,7 +19,8 @@ Note that this code is intended for reasearch, hence mostly undocumented.
 Some crude documentation (which helped while implementing) is provided under [/doc](doc)
 
 For further information see:
-- (TODO) cite paper
+
+- Claus, T.; Bünger, J.; Torrilhon, M. A Novel Reconstruction Method to Increase Spatial Resolution in Electron Probe Microanalysis. Math. Comput. Appl. 2021, 26, 51. [https://doi.org/10.3390/mca26030051](https://doi.org/10.3390/mca26030051)
 - Claus, T. J. (2018). [Application of the Adjoint Method in Gradient-based Optimization to the M1-Model in Electron Beam Microanalysis.](http://www.mathcces.rwth-aachen.de/_media/3teaching/00projects/2018_ba_tammeclaus.pdf)
 
 ## Dependencies
