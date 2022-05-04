@@ -21,7 +21,8 @@ class Experiment:
         x_ray_transitions:List[physics.XRay],
         epsilon_initial_keV:float,
         epsilon_cutoff_keV:float,
-        n_epsilon:int):
+        n_epsilon:int,
+        compute_internals=True):
 
         self._material = material
         self._detector = detector
@@ -35,14 +36,15 @@ class Experiment:
         self._n_epsilon = n_epsilon
         self._epsilons_keV, self._delta_epsilon_keV = np.linspace(epsilon_cutoff_keV, epsilon_initial_keV, n_epsilon, retstep=True)
 
-        self._update_specific_densities()
-        self._update_attenumation_integration_segments()
-        self._update_specific_attenuation_coefficient()
-        self._update_standard_intensities()
-        self._update_specific_n_of_atoms()
-        self._update_emiss_cross_sections()
-        self._update_specific_stopping_power_and_transport_coefficient()
-        self._update_extraction_operator()
+        if compute_internals:
+            self._update_specific_densities()
+            self._update_attenumation_integration_segments()
+            self._update_specific_attenuation_coefficient()
+            self._update_standard_intensities()
+            self._update_specific_n_of_atoms()
+            self._update_emiss_cross_sections()
+            self._update_specific_stopping_power_and_transport_coefficient()
+            self._update_extraction_operator()
 
     @property
     def material(self) -> physics.Material:
@@ -265,15 +267,18 @@ class Experiment:
     def parameter_dimensions(self):
         return (self.material.n_x, self.material.n_y, self.n_elements - 1)
 
-    def update_std_intensities(self):
-        for x_ray in self.x_ray_transitions:
-            el_idx = self.elements.index(x_ray.element)
-            parameters = np.zeros(self.parameter_dimensions)
-            if el_idx != len(self.elements) - 1:
-                parameters[:, :, el_idx] = 1.
-            k_r = k_ratios(self, parameters)
-            self._standart_intensities[el_idx] = k_r[el_idx]
-    
+    def update_std_intensities(self, std_ints = None):
+        if std_ints == None:
+            for x_ray in self.x_ray_transitions:
+                el_idx = self.elements.index(x_ray.element)
+                parameters = np.zeros(self.parameter_dimensions)
+                if el_idx != len(self.elements) - 1:
+                    parameters[:, :, el_idx] = 1.
+                k_r = k_ratios(self, parameters)
+                self._standart_intensities[el_idx] = k_r[el_idx]
+        else:
+            for i, std_int in enumerate(std_ints):
+                self._standart_intensities[i] = std_int
 
 
 def mass_fractions_from_parameters(n_x: int, n_y: int, parameters: np.ndarray):

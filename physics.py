@@ -153,7 +153,7 @@ class Nickel(Element):
         super(Nickel, self).__init__(name="Nickel",
                                      atomic_number=28,
                                      molar_mass=58.6934e-3,
-                                     density=8.9e3)
+                                     density=8.902e3)
 
 
 class Chromium(Element):
@@ -161,7 +161,7 @@ class Chromium(Element):
         super(Chromium, self).__init__(name="Chromium",
                                        atomic_number=24,
                                        molar_mass=51.9961e-3,
-                                       density=7.2e3)
+                                       density=7.19e3)
 
 
 class Silicon(Element):
@@ -192,7 +192,7 @@ class Manganese(Element):
         super(Manganese, self).__init__(name="Manganese",
                                         atomic_number=25,
                                         molar_mass=54.938044e-3,
-                                        density=7.43e3)
+                                        density=7.44e3)
 
 class Aluminium(Element):
     def __init__(self):
@@ -214,6 +214,20 @@ class Arsenic(Element):
                                       atomic_number=33,
                                       molar_mass=74.9216e-3,
                                       density=5.727e3)
+
+class Carbon(Element):
+    def __init__(self):
+        super(Carbon, self).__init__(name="Carbon",
+                                      atomic_number=6,
+                                      molar_mass=12.011e-3,
+                                      density=2.260e3)
+
+class Titan(Element):
+    def __init__(self):
+        super(Titan, self).__init__(name="Titan",
+                                    atomic_number=22,
+                                    molar_mass=47.867e-3,
+                                    density=4.54e3)
 
 
 class XRay(object):
@@ -262,6 +276,10 @@ class XRay(object):
     def emission_cross_section(self, energy):
         return self.ionization_cross_section(energy)*self.element.fluorescence_yield_k_shell()
 
+def normalize(x):
+    return x / np.linalg.norm(x)
+
+
 class ElectronBeam:
     def __init__(self, size, pos, beam_energy_keV, energy_variation_keV):
         self.size_x = size[0]
@@ -272,8 +290,10 @@ class ElectronBeam:
         self.beam_energy_keV = beam_energy_keV
 
     def intensity_dist(self, x, y, eps_keV):
-        return scipy.stats.multivariate_normal(mean=[self.position_x, self.position_y], cov=np.diag([self.size_x, self.size_y])).pdf([x, y])*\
+        return scipy.stats.multivariate_normal(mean=self.position_x, cov=self.size_x).pdf(x)*\
             scipy.stats.multivariate_normal(mean=self.beam_energy_keV, cov=self.energy_variation_keV).pdf(eps_keV)
+        # return scipy.stats.multivariate_normal(mean=[self.position_x, self.position_y], cov=np.diag([self.size_x, self.size_y])).pdf([x, y])*\
+        #     scipy.stats.multivariate_normal(mean=self.beam_energy_keV, cov=self.energy_variation_keV).pdf(eps_keV)
         # return np.exp(-np.power(1 / self.energy_variation * (eps - self.beam_energy), 2))
 
 class Material:
@@ -398,7 +418,14 @@ class Detector(object):
             y_m = (points[i]['y'] + points[i+1]['y'])/2.
             is_ = int(map_from_to(x_m, self.material.dim_x[0], self.material.dim_x[1], 0., self.material.n_x))
             js_ = int(map_from_to(y_m, self.material.dim_y[0], self.material.dim_y[1], 0., self.material.n_y))
-            segments[is_, js_] += (points[i+1]['m'] - points[i]['m'])*length
+            ## HACK: DO NOT THINK ABOUT THIS!
+            if is_ == self.material.n_x-1:
+                ## COMPUTE THE INTERSECTION WITH THE MATERIAL SURFACE
+                m = (0. - y_source)/(self.y - y_source)
+                segments[is_, js_] += (m - points[i]['m'])*length
+            else:
+                # ONLY THIS EXCLUDES REGIONS OUTSIDE OF THE COMPUTATIONAL DOMAIN
+                segments[is_, js_] += (points[i+1]['m'] - points[i]['m'])*length
         return points, segments
 
     def _line_segments(self):
